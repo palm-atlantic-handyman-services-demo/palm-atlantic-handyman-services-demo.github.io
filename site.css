@@ -227,13 +227,21 @@ form.q .form-ok{font-size:.92rem;color:var(--muted);min-height:1.2em}
 form.q .form-ok.err{color:#B3261E}
 form.q .form-ok.good{color:#1B6B3A;font-weight:600}
 form.q .fine{font-size:.8rem;color:var(--muted)}
-dialog.qm{border:0;padding:0;background:transparent;width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto}
-dialog.qm::backdrop{background:rgba(6,16,30,.72)}
-dialog.qm .qm-head{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--navy);color:#fff;border-radius:18px 18px 0 0;padding:18px 22px}
-dialog.qm .qm-head h2{color:#fff;font-size:1.9rem}
-dialog.qm .qm-head p{color:rgba(255,255,255,.7);font-size:.88rem}
-dialog.qm .qm-x{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:1.2rem;cursor:pointer;flex:none}
-dialog.qm form.q{border-radius:0 0 18px 18px;box-shadow:none}
+/* quote form on the front page (hero), not a pop-up */
+.hero-form{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(11,36,64,.55);scroll-margin-top:96px}
+.hero-form .hf-head{background:var(--navy);color:#fff;padding:18px 24px}
+.hero-form .hf-head h2{color:#fff;font-size:1.9rem;line-height:1.05}
+.hero-form .hf-head p{color:rgba(255,255,255,.75);font-size:.92rem;margin:6px 0 0}
+.hero-form form.q{border-radius:0;box-shadow:none;padding:22px 24px 24px}
+/* phones: the form comes right after the headline, before the intro and buttons */
+@media(max-width:959px){
+.hero-grid{gap:0}
+.hero-grid>div:first-child{display:contents}
+.hero .crumb{order:0}.hero .kicker{order:1}.hero h1{order:2}.hero-form{order:3;margin:22px 0 30px}
+.hero .lede{order:4}.hero .cta-row{order:5}.hero .rating{order:6}
+.hero-form .hf-head{padding:14px 18px}.hero-form .hf-head h2{font-size:1.6rem}
+.hero-form form.q{padding:18px}
+}
 .towns a{text-decoration:none;display:block}
 .towns li:has(a):hover{border-color:var(--navy)}
 .crumb{font-size:.85rem;color:var(--muted);margin-bottom:14px}

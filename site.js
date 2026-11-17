@@ -20,19 +20,12 @@ document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))
 lb.addEventListener('touchstart',function(e){tx=e.changedTouches[0].clientX;},{passive:true});
 lb.addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)show(i+(d<0?1:-1));tx=null;},{passive:true});}
 
-/* quote pop-up */
-var qm=document.getElementById('quoteModal'),seen=false;
-try{seen=sessionStorage.getItem('qmSeen')==='1';}catch(e){}
-function openQ(svc){if(!qm)return;if(svc){var s=qm.querySelector('select[name=service]');if(s)s.value=svc;}
-  try{sessionStorage.setItem('qmSeen','1');}catch(e){}seen=true;
-  if(typeof qm.showModal==='function'){if(!qm.open)qm.showModal();}else{var f=document.getElementById('quoteform');if(f)f.scrollIntoView({behavior:'smooth'});return;}
-  var first=qm.querySelector('input[name=name]');if(first)setTimeout(function(){first.focus();},50);}
-[].forEach.call(document.querySelectorAll('[data-quote]'),function(b){b.addEventListener('click',function(e){e.preventDefault();openQ(b.getAttribute('data-service'));});});
-if(qm){qm.querySelector('[data-close]').addEventListener('click',function(){qm.close();});
-  qm.addEventListener('click',function(e){if(e.target===qm)qm.close();});}
-function auto(){if(seen||!qm||qm.open||(lb&&lb.classList.contains('on')))return;openQ();}
-setTimeout(auto,35000);
-window.addEventListener('scroll',function(){var h=document.documentElement;if((h.scrollTop+h.clientHeight)/h.scrollHeight>0.6)auto();},{passive:true});
+/* Free quote buttons: jump to the form in the hero (no pop-up) */
+var qf=document.getElementById('quoteform'),qbox=document.getElementById('quote');
+function goQ(svc){if(!qf)return;if(svc){var s=qf.querySelector('select[name=service]');if(s)s.value=svc;}
+  if(qbox)qbox.scrollIntoView({behavior:'smooth',block:'start'});
+  var n=qf.querySelector('input[name=name]');if(n)setTimeout(function(){try{n.focus({preventScroll:true});}catch(e){n.focus();}},450);}
+[].forEach.call(document.querySelectorAll('[data-quote]'),function(b){b.addEventListener('click',function(e){e.preventDefault();goQ(b.getAttribute('data-service'));});});
 
 /* quote forms */
 function fmt(d){return '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);}
